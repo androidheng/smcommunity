@@ -21,7 +21,7 @@ import entity.Result;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminController {
+public class AdminController { 
 
 	@Autowired
 	private AdminService adminService;
