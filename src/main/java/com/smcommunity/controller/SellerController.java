@@ -54,7 +54,7 @@ public class SellerController {
 			if(loginSeller!=null){
 				return new Result(200, "登录成功",loginSeller);
 			}else{
-				return new Result(201, "登录失败");
+				return new Result(201, "登录失败"); 
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
