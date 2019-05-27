@@ -50,13 +50,27 @@ public class SellerController {
 			System.out.println(password);
 			 seller.setUsername(username);
 			 seller.setPassword(password);
-			/* TbSeller loginSeller=sellerService.login(users);
-			if(loginUser!=null){
-				return new Result(200, "登录成功",loginUser);
+			 TbSeller loginSeller=sellerService.login(seller);
+			if(loginSeller!=null){
+				return new Result(200, "登录成功",loginSeller);
 			}else{
 				return new Result(201, "登录失败");
-			}*/
-			 return new Result(201, "登录失败");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Result(201, "登录失败");
+		}
+	}
+	@ResponseBody
+	@RequestMapping("/regisger")
+	public Result regisger( String username,String password){
+		try {
+			TbSeller seller=new TbSeller();
+			System.out.println(password);
+			seller.setUsername(username);
+			seller.setPassword(password);
+			sellerService.add(seller);
+			return new Result(200, "注册成功");
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new Result(201, "登录失败");

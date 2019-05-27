@@ -93,5 +93,17 @@ public class SellerServiceImpl implements SellerService {
 		Page<TbSeller> page= (Page<TbSeller>)sellerMapper.selectByExample(example);		
 		return new PageResult(page.getTotal(), page.getResult());
 	}
+
+		@Override
+		public TbSeller login(TbSeller seller) {
+			TbSellerExample example=new TbSellerExample();
+			Criteria criteria = example.createCriteria();
+			criteria.andUsernameEqualTo(seller.getUsername());
+			criteria.andPasswordEqualTo(seller.getPassword());
+			List<TbSeller> list = sellerMapper.selectByExample(example);
+			if(list.size()>0)
+				list.get(0);
+			return null;
+		}
 	
 }

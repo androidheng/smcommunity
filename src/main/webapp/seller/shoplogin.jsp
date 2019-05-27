@@ -80,8 +80,10 @@
                     </td>
                 </tr>
                 <tr>
-                    <td align="center" >
-                        <span style="color: red">${msg}</span>
+                    <td height="35">&nbsp;</td>
+                    <td style="text-align: right;font-size: 12px" id = "registerTr" class="loginOrRegister">
+                        <span >没有账号? </span>
+                        <a href="<%=basePath%>seller/register.jsp">注 册</a>
                     </td>
                 </tr>
             </table>
