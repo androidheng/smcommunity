@@ -72,10 +72,8 @@ public class MessageServiceImpl implements MessageService {
 	 * 批量删除
 	 */
 	@Override
-	public void delete(Integer[] ids) {
-		for(Integer id:ids){
-			messageMapper.deleteByPrimaryKey(id);
-		}		
+	public void delete(Integer id) {
+		messageMapper.deleteByPrimaryKey(id);
 	}
 	
 	

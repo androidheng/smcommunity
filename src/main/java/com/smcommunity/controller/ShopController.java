@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
+
 import com.smcommunity.pojo.TbShop;
 import com.smcommunity.service.ShopService;
 import com.smcommunity.utils.DateUtils;
@@ -95,8 +97,15 @@ public class ShopController {
 			//moments.setLoved("0");
 			//moments.setComments("0");
 			//moments.setCreatetime(DateUtils.getCurrent());
-			shopService.add(shop);
-			return "商品添加成功";
+			if(StringUtils.isEmpty(shop.getId())) {
+				shopService.add(shop);
+				return "商品添加成功";
+			}else {
+				shopService.update(shop);
+				return "商品修改成功";
+			}
+			
+			
 			}catch (Exception e) {
 			e.printStackTrace();
 			return "商品添加失败";

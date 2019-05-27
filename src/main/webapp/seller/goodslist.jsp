@@ -15,7 +15,7 @@ $(function () {
         nowrap: false,
         striped: true,
         fit: true,
-        url: "<%=baseUrl%>/goods/search?goodstype=1",
+        url: "<%=baseUrl%>/goods/search?goodstype=0",
         idField: 'id',
         pagination: true,
         rownumbers: true,
@@ -32,8 +32,10 @@ $(function () {
                 {title: 'id', width: 100, field: 'id', sortable: true},
                 {title: '商品名称', width: 100, field: 'goodsname', sortable: true},
                 {title: '商品类别', width: 100, field: 'tname', sortable: true},
-                {title: '商品描叙', width: 400, field: 'goodsdescribe',sortable: true}
-               
+                {title: '商品描叙', width: 400, field: 'goodsdescribe',sortable: true},
+                {title: '商品图片', width: 400, field: 'goodsimage', formatter:function(value,row,index){
+                	return "<img style='width:60px;height:60px;' border='1' src='http://localhost:8080/"+row.goodsimage+"'/>";
+                }}
             ]
         ], toolbar: [
             {
@@ -47,7 +49,7 @@ $(function () {
                     managForm.reset();
                 }
             },
-           /*  '-',
+             '-',
             {
                 text: '修改',
                 id: 'tooledit',
@@ -62,7 +64,7 @@ $(function () {
                         $.messager.alert("提示", "请选择一条记录进行操作");
                     }
                 }
-            }, */
+            }, 
             '-',
             {
                 text: '删除',
@@ -117,10 +119,10 @@ function save() {
 
 function edit(obj) {
 	var id = obj.id;
-    $("#id").val(id);
-    $("#username").val(obj.username);
-    $("#password").val(obj.password);
-    $("#sex").val(obj.sex);
+	$("#id").val(id);
+    $("#goodsname").val(obj.goodsname);
+    $("#tid").val(obj.tid);
+    $("#goodsdescribe").val(obj.goodsdescribe);
     $("#managerDialog").dialog('open');
 }
 
@@ -207,7 +209,7 @@ function setNull(){
      buttons="#dlg-buttons2" resizable="true" modal="true" closed='true'>
     <form id="managForm" name="managForm" method="post" enctype="multipart/form-data">
         <input type="hidden" id="id" name="id"/>
-        <input type="hidden" id="goodstype" name="goodstype" value="1"/>
+        <input type="hidden" id="goodstype" name="goodstype" value="0"/>
         <table cellpadding="1" cellspacing="1" class="tb_custom1">
             <tr>
                 <th width="30%" align="right"><label>商品类别：</label></th>

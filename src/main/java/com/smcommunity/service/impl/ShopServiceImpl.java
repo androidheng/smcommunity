@@ -55,7 +55,7 @@ public class ShopServiceImpl implements ShopService {
 	 */
 	@Override
 	public void update(TbShop shop){
-		shopMapper.updateByPrimaryKey(shop);
+		shopMapper.updateByPrimaryKeySelective(shop);
 	}	
 	
 	/**

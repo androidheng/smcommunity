@@ -55,7 +55,7 @@ public class BannerServiceImpl implements BannerService {
 	 */
 	@Override
 	public void update(TbBanner banner){
-		bannerMapper.updateByPrimaryKey(banner);
+		bannerMapper.updateByPrimaryKeySelective(banner);
 	}	
 	
 	/**
@@ -72,10 +72,8 @@ public class BannerServiceImpl implements BannerService {
 	 * 批量删除
 	 */
 	@Override
-	public void delete(Integer[] ids) {
-		for(Integer id:ids){
-			bannerMapper.deleteByPrimaryKey(id);
-		}		
+	public void delete(Integer id) {
+		bannerMapper.deleteByPrimaryKey(id);
 	}
 	
 	

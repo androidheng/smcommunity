@@ -18,7 +18,7 @@ String roletype = "1";
         			  ]},
    	   	              {"menuid": "1", "icon": "icon-magic", "menuname": "banner管理",
    		   	                 "menus": [
-   		   	                     {"menuid": "12", "menuname": "banner列表", "icon": "icon-database", "url": "<%= basePath%>user/toBannerList"}
+   		   	                     {"menuid": "12", "menuname": "banner列表", "icon": "icon-database", "url": "<%= basePath%>admin/bannerlist.jsp"}
    		   	                 ]},
    		   	                
    		   	              {"menuid": "1", "icon": "icon-magic", "menuname": "报修管理",

@@ -10,6 +10,8 @@ public class MomentsVo extends TbMoments{
 	 private String goodsdescribe;
 	 private int type=0;
 	 private int goodsid;
+	 
+	 
 	public String getNickname() {
 		return nickname;
 	}

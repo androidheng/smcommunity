@@ -16,6 +16,14 @@ public class TbMoments {
     private String comments;
 
     private String newstype;
+    
+	private String nickname;
+	private String headlogo;
+	private String goodsimage;
+	private String goodsname;
+	private String goodsdescribe;
+	private int type = 0;
+	private int goodsid;
 
     public Integer getId() {
         return id;
@@ -80,4 +88,47 @@ public class TbMoments {
     public void setNewstype(String newstype) {
         this.newstype = newstype == null ? null : newstype.trim();
     }
+    
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	public String getHeadlogo() {
+		return headlogo;
+	}
+	public void setHeadlogo(String headlogo) {
+		this.headlogo = headlogo;
+	}
+	public String getGoodsimage() {
+		return goodsimage;
+	}
+	public void setGoodsimage(String goodsimage) {
+		this.goodsimage = goodsimage;
+	}
+	public String getGoodsname() {
+		return goodsname;
+	}
+	public void setGoodsname(String goodsname) {
+		this.goodsname = goodsname;
+	}
+	public String getGoodsdescribe() {
+		return goodsdescribe;
+	}
+	public void setGoodsdescribe(String goodsdescribe) {
+		this.goodsdescribe = goodsdescribe;
+	}
+	public int getType() {
+		return type;
+	}
+	public void setType(int type) {
+		this.type = type;
+	}
+	public int getGoodsid() {
+		return goodsid;
+	}
+	public void setGoodsid(int goodsid) {
+		this.goodsid = goodsid;
+	}
 }

@@ -11,11 +11,11 @@ String path = request.getContextPath();
 <script type="text/javascript">
 $(function () {
     $('#grid1').datagrid({
-        title: '通知列表',
+        title: '用户列表',
         nowrap: false,
         striped: true,
         fit: true,
-        url: "<%=baseUrl%>/message/search",
+        url: "<%=baseUrl%>/banner/findAll",
         idField: 'id',
         pagination: true,
         rownumbers: true,
@@ -29,12 +29,10 @@ $(function () {
         columns: [
             [
                 //{field: 'ck', checkbox: true},
-                {title: 'id', width: 100, field: 'id', sortable: true},
-                {title: '通知类型', width: 100, field: 'type', sortable: true},
-                {title: '通知标题', width: 400, field: 'title',sortable: true},
-                {title: '通知内容', width: 400, field: 'content',sortable: true},
-                {title: '通知时间', width: 400, field: 'createtime',sortable: true}
-               
+                {title: 'id', width: 20, field: 'id', sortable: true},
+                {title: '图片', width: 100, field: 'url', formatter:function(value,row,index){
+                	return "<img style='width:100px;height:80px;' border='1' src='http://localhost:8080/"+row.url+"'/>";
+                }}
             ]
         ], toolbar: [
             {
@@ -48,7 +46,7 @@ $(function () {
                     managForm.reset();
                 }
             },
-           /*  '-',
+            '-',
             {
                 text: '修改',
                 id: 'tooledit',
@@ -63,7 +61,7 @@ $(function () {
                         $.messager.alert("提示", "请选择一条记录进行操作");
                     }
                 }
-            }, */
+            },
             '-',
             {
                 text: '删除',
@@ -102,7 +100,7 @@ $(function () {
 
 function save() {
     $('#managForm').form('submit', {
-        url: "<%=baseUrl%>/message/addOrUpdate",
+        url: "<%=baseUrl%>/banner/addOrUpdate",
         onSubmit: function () {
             return inputCheck();
         },
@@ -119,15 +117,15 @@ function save() {
 function edit(obj) {
 	var id = obj.id;
     $("#id").val(id);
-    $("#username").val(obj.username);
+  /*   $("#username").val(obj.username);
     $("#password").val(obj.password);
-    $("#sex").val(obj.sex);
+    $("#sex").val(obj.sex); */
     $("#managerDialog").dialog('open');
 }
 
 function deleteItem(uuid) {
     openBackGround();
-    $.post("<%=baseUrl%>/message/delete", {id: uuid}, function (data) {
+    $.post("<%=baseUrl%>/banner/delete", {id: uuid}, function (data) {
         closeBackGround();
         closeFlush();
     });
@@ -203,36 +201,15 @@ function setNull(){
 </div>
 
 
-<div id="managerDialog" class="easyui-dialog" title="消息管理" style="width:450px;height:350px;" toolbar="#dlg-toolbar"
+<div id="managerDialog" class="easyui-dialog" title="banner管理" style="width:450px;height:350px;" toolbar="#dlg-toolbar"
      buttons="#dlg-buttons2" resizable="true" modal="true" closed='true'>
-    <form id="managForm" name="managForm" method="post" >
+    <form id="managForm" name="managForm" method="post" enctype="multipart/form-data">
         <input type="hidden" id="id" name="id"/>
         <table cellpadding="1" cellspacing="1" class="tb_custom1">
             <tr>
-                <th width="30%" align="right"><label>通知类型：</label></th>
+                <th width="30%" align="right"><label>banner图片：</label></th>
                 <td width="60%" colspan="1">
-                    <select id="type" class="easyui-combobox" name="type" style="width:200px;">
-					    <option value="0">公告</option>
-					    <option value="1">活动</option>
-					    <option value="2">推广</option>
-					    <option value="3">通知</option>
-					</select>
-                </td>
-            </tr>
-            <tr>
-                <th width="30%" align="right"><label>通知标题：</label></th>
-                <td width="60%" colspan="1">
-                    <input id="title" name="title" class="easyui-validatebox"
-                           style="width:300px;word-wrap: break-word;word-break:break-all;" type="text" required="true"
-                           validType="length[0,100]"/>
-                </td>
-            </tr>
-            <tr>
-                <th width="30%" align="right"><label>通知内容：</label></th>
-                <td width="60%" colspan="1">
-                    <input id="content" name="content" class="easyui-validatebox"
-                           style="width:300px;word-wrap: break-word;word-break:break-all;" type="text" required="true"
-                           validType="length[0,100]"/>
+                    <input type="file" name="file" style="width:200px">
                 </td>
             </tr>
 

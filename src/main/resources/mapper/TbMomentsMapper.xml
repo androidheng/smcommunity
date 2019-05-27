@@ -10,6 +10,12 @@
     <result column="loved" property="loved" jdbcType="VARCHAR" />
     <result column="comments" property="comments" jdbcType="VARCHAR" />
     <result column="newstype" property="newstype" jdbcType="VARCHAR" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="headlogo" property="headlogo" jdbcType="VARCHAR" />
+    <result column="goodsimage" property="goodsimage" jdbcType="VARCHAR" />
+    <result column="goodsname" property="goodsname" jdbcType="VARCHAR" />
+    <result column="goodsdescribe" property="goodsdescribe" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -255,4 +261,20 @@
       newstype = #{newstype,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="findBbs" resultMap="BaseResultMap">
+  	select * from (select a.`id`,'' content,'' logo,'' uid,1 `type`,a.createtime,'' loved,'' comments,'' nickname,'' headlogo ,a.goodsimage,a.goodsname,a.goodsdescribe
+	from tb_goods a where a.`goodstype`=1 
+	union all
+	select b.id,b.content,b.logo ,b.uid ,0 `type`,b.createtime,b.loved,b.comments,c.nickname,c.headlogo,'' goodsimage,'' goodsname,'' goodsdescribe
+	from tb_moments b,tb_users c where b.uid=c.id  and b.newstype= #{newstype,jdbcType=VARCHAR}) aa
+	ORDER BY aa.createtime desc
+  </select>
+  <select id="findBbsNoKey" resultMap="BaseResultMap">
+  	select * from (select a.`id`,'' content,'' logo,'' uid,1 `type`,a.createtime,'' loved,'' comments,'' nickname,'' headlogo ,a.goodsimage,a.goodsname,a.goodsdescribe
+	from tb_goods a where a.`goodstype`=1 
+	union all
+	select b.id,b.content,b.logo ,b.uid ,0 `type`,b.createtime,b.loved,b.comments,c.nickname,c.headlogo,'' goodsimage,'' goodsname,'' goodsdescribe
+	from tb_moments b,tb_users c where b.uid=c.id  ) aa
+	ORDER BY aa.createtime desc
+  </select>
 </mapper>

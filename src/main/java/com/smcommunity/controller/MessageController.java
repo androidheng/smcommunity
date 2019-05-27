@@ -111,9 +111,9 @@ public class MessageController {
 	 * @return
 	 */
 	@RequestMapping("/delete")
-	public Result delete(Integer [] ids){
+	public Result delete(Integer  id){
 		try {
-			messageService.delete(ids);
+			messageService.delete(id);
 			return new Result(true, "删除成功"); 
 		} catch (Exception e) {
 			e.printStackTrace();

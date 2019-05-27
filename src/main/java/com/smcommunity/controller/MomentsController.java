@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 
+import com.smcommunity.mapper.TbMomentsMapper;
 import com.smcommunity.pojo.TbGoods;
 import com.smcommunity.pojo.TbMoments;
 import com.smcommunity.pojo.TbUsers;
@@ -43,14 +44,23 @@ public class MomentsController {
 	private UsersService usersService;
 	@Autowired
 	private GoodsService goodsService;
+	@Autowired
+	private TbMomentsMapper tbMomentsMapper;
 	/**
 	 * 返回全部列表
 	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping("/findAll")
-	public List<MomentsVo> findAll(String key){
-		 List<TbMoments> list = momentsService.findAll(key);
+	public List<TbMoments> findAll(String key){
+		List<TbMoments> list=null;
+		if(StringUtils.isEmpty(key)) {
+			list=tbMomentsMapper.findBbsNoKey();
+		}else {
+			list=tbMomentsMapper.findBbs(key);
+		}
+		
+	/*	 List<TbMoments> list = momentsService.findAll(key);
 		 List<MomentsVo> resultLit=new ArrayList<>();
 		 List<TbGoods> goods=goodsService.findGuanGao();
 		 for (TbGoods tbGoods : goods) {
@@ -66,14 +76,11 @@ public class MomentsController {
 			BeanUtils.copyProperties(tbMoments, momentsVo);
 			TbUsers tbUsers = usersService.findOne(tbMoments.getUid());
 			momentsVo.setNickname(tbUsers.getNickname());
-		/*	if(!StringUtils.isEmpty(tbMoments.getLogo())) {
-				momentsVo.setLogo(tbMoments.getLogo());
-			}*/
 			momentsVo.setHeadlogo(tbUsers.getHeadlogo());
 			resultLit.add(momentsVo);
-		}
+		}*/
 		 
-		return resultLit;
+		return list;
 	}
 	@ResponseBody
 	@RequestMapping("/findMyList")

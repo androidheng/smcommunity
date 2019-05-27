@@ -38,7 +38,7 @@ $(function () {
                 {title: '注册时间', width: 400, field: 'createtime',sortable: true}
             ]
         ], toolbar: [
-            {
+        	/*{
                 text: '新增',
                 id: "tooladd",
                 disabled: false,
@@ -64,7 +64,7 @@ $(function () {
                         $.messager.alert("提示", "请选择一条记录进行操作");
                     }
                 }
-            },
+            } ,
             '-',
             {
                 text: '删除',
@@ -88,7 +88,7 @@ $(function () {
                         $.messager.alert("提示", "请选择一条记录进行操作");
                     }
                 }
-            }
+            } */
         ]
     });
 

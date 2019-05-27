@@ -27,4 +27,8 @@ public interface TbMomentsMapper {
     int updateByPrimaryKeySelective(TbMoments record);
 
     int updateByPrimaryKey(TbMoments record);
+    
+    List<TbMoments> findBbs(@Param("newstype") String  newstype);
+
+	List<TbMoments> findBbsNoKey();
 }
