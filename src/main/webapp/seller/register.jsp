@@ -13,7 +13,7 @@
 </head>
    <script src="<%=basePath%>js/jquery.min.js"></script>
 <script type="text/javascript">
-	function logins(){
+	function registers(){
 		var username=$("#username").val();
 		if(username==''||username==null){
 			alert("用户名不能为空");
@@ -86,20 +86,20 @@
 
                     </td>
                     <td width="69%">
-                        <input name="account" type="text" size="30" placeholder="请输入用户名" />
+                        <input name="username" id="username" type="text" size="30" placeholder="请输入用户名" />
                     </td>
                 </tr>
                 <tr>
                     <td height="35" class="login-text02">密　码：</td>
                     <td>
-                        <input name="password" type="password" size="30" placeholder="请输入密码"/>
+                        <input name="password" id="password" type="password" size="30" placeholder="请输入密码"/>
                     </td>
                 </tr>
                 <tr>
                     <td height="35">&nbsp;</td>
                     <td id ="loginOrregister">
-                        <input name="register" id="register" type="button" onclick="register();" class="right-button01" value="注册"/>
-                    	<span font-size: 12px"><a href="<%=baseUrl %>seller/shoplogin">返回登陆</a></span>
+                        <input name="register" id="register" type="button" onclick="registers();" class="right-button01" value="注册"/>
+                    	<span font-size: 12px"><a href="<%=baseUrl%>shoplogin.jsp">返回登陆</a></span>
                     </td>
                 </tr>
                  <tr >

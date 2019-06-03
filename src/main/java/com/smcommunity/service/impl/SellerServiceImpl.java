@@ -102,7 +102,7 @@ public class SellerServiceImpl implements SellerService {
 			criteria.andPasswordEqualTo(seller.getPassword());
 			List<TbSeller> list = sellerMapper.selectByExample(example);
 			if(list.size()>0)
-				list.get(0);
+				return list.get(0);
 			return null;
 		}
 	

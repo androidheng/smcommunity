@@ -118,42 +118,47 @@ public class GoodsController {
 			goods.setDisplay(0);
 			TbType tbType = typeService.findOne(goods.getTid());
 			goods.setTname(tbType.getTypename());
-			if(goods.getIsall().equals(0)) {
-				String etypename = tbType.getEtypename();
-				TbTypecountExample example=new TbTypecountExample();
-				Criteria criteria = example.createCriteria();
-				if(etypename.equals("food")) {
-					criteria.andFoodGreaterThan(0d);
-				}else if(etypename.equals("electronics")) {
-					criteria.andElectronicsGreaterThan(0d);
-				}else if(etypename.equals("everyday")) {
-					criteria.andEverydayGreaterThan(0d);
-				}else if(etypename.equals("book")) {
-					criteria.andBookGreaterThan(0d);
-				}else if(etypename.equals("clothing")) {
-					criteria.andClothingGreaterThan(0d);
-				}else if(etypename.equals("fresh")) {
-					criteria.andFreshGreaterThan(0d);
-				}
-				
-				goodsService.add(goods);
-				List<TbTypecount> list = tbTypecountMapper.selectByExample(example);
-				for (TbTypecount tbTypecount : list) {
-					TbGoodsuser record=new TbGoodsuser();
-					record.setGid(goods.getId());
-					record.setUid(tbTypecount.getUid());
-					tbGoodsuserMapper.insert(record);
+			if(goods.getGoodstype().equals(1)) {
+				if(goods.getIsall().equals(0)) {
+					String etypename = tbType.getEtypename();
+					TbTypecountExample example=new TbTypecountExample();
+					Criteria criteria = example.createCriteria();
+					if(etypename.equals("food")) {
+						criteria.andFoodGreaterThan(0d);
+					}else if(etypename.equals("electronics")) {
+						criteria.andElectronicsGreaterThan(0d);
+					}else if(etypename.equals("everyday")) {
+						criteria.andEverydayGreaterThan(0d);
+					}else if(etypename.equals("book")) {
+						criteria.andBookGreaterThan(0d);
+					}else if(etypename.equals("clothing")) {
+						criteria.andClothingGreaterThan(0d);
+					}else if(etypename.equals("fresh")) {
+						criteria.andFreshGreaterThan(0d);
+					}
+					
+					goodsService.add(goods);
+					List<TbTypecount> list = tbTypecountMapper.selectByExample(example);
+					for (TbTypecount tbTypecount : list) {
+						TbGoodsuser record=new TbGoodsuser();
+						record.setGid(goods.getId());
+						record.setUid(tbTypecount.getUid());
+						tbGoodsuserMapper.insert(record);
+					}
+				}else {
+					goodsService.add(goods);
+					List<TbUsers> list = usersService.findAll();
+					for (TbUsers tbUsers : list) {
+						TbGoodsuser record=new TbGoodsuser();
+						record.setGid(goods.getId());
+						record.setUid(tbUsers.getId());
+						tbGoodsuserMapper.insert(record);
+					}
 				}
 			}else {
 				goodsService.add(goods);
-				List<TbUsers> list = usersService.findAll();
-				for (TbUsers tbUsers : list) {
-					TbGoodsuser record=new TbGoodsuser();
-					record.setGid(goods.getId());
-					record.setUid(tbUsers.getId());
-					tbGoodsuserMapper.insert(record);
-				}
 			}
+			
 			
 			 return "商品添加成功";
 			}catch (Exception e) {
