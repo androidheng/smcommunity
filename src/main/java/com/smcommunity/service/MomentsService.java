@@ -63,5 +63,11 @@ public interface MomentsService {
 
 
 	public List<TbMoments> findMyAll(String uid);
+
+
+	public PageResult findPage(String key, String startdate, String enddate, int page, int rows);
+
+
+	public PageResult findPage(String key, String date, int page, int rows);
 	
 }

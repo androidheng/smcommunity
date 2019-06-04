@@ -24,7 +24,8 @@ public class TbMoments {
 	private String goodsdescribe;
 	private int type = 0;
 	private int goodsid;
-
+	
+	private Integer nums;
     public Integer getId() {
         return id;
     }
@@ -131,4 +132,13 @@ public class TbMoments {
 	public void setGoodsid(int goodsid) {
 		this.goodsid = goodsid;
 	}
+
+	public Integer getNums() {
+		return nums;
+	}
+
+	public void setNums(Integer nums) {
+		this.nums = nums;
+	}
+	
 }

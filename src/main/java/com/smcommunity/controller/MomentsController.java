@@ -191,6 +191,23 @@ public class MomentsController {
 			return new Result(201, "修改失败");
 		}
 	}	
+	/**
+	 * 点赞
+	 * @param moments
+	 * @return
+	 */
+	@RequestMapping("/updateLove")
+	public Result updateLove(@RequestBody TbMoments moments){
+		try {
+			TbMoments tbMoments = momentsService.findOne(moments.getId());
+			tbMoments.setLoved((Integer.parseInt(tbMoments.getLoved())+1)+"");
+			momentsService.update(tbMoments);
+			return new Result(200, "修改成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Result(201, "修改失败");
+		}
+	}	
 	
 	/**
 	 * 获取实体
@@ -225,9 +242,18 @@ public class MomentsController {
 	 * @param rows
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/search")
-	public PageResult search(@RequestBody TbMoments moments, int page, int rows  ){
-		return momentsService.findPage(moments, page, rows);		
+	public PageResult search(String key,String startdate,String enddate, int page, int rows){
+		if(StringUtils.isEmpty(key)&&StringUtils.isEmpty(startdate)&&StringUtils.isEmpty(enddate)) {
+			return new PageResult(0, new ArrayList<>());
+		}
+		return momentsService.findPage(key,startdate,enddate, page, rows);		
+	}
+	@ResponseBody
+	@RequestMapping("/detail")
+	public PageResult detail(String key,String date, int page, int rows){
+		return momentsService.findPage(key,date, page, rows);		
 	}
 	
 }

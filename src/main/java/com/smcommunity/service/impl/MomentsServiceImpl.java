@@ -118,5 +118,19 @@ public class MomentsServiceImpl implements MomentsService {
 			
 			return null;
 		}
+
+		@Override
+		public PageResult findPage(String key, String startdate, String enddate, int pageNum, int rows) {
+			PageHelper.startPage(pageNum, rows);
+			Page<TbMoments> page= (Page<TbMoments>)momentsMapper.findPages(key,startdate,enddate);	
+			return new PageResult(page.getTotal(), page.getResult());
+		}
+
+		@Override
+		public PageResult findPage(String key, String date, int pageNum, int rows) {
+			PageHelper.startPage(pageNum, rows);
+			Page<TbMoments> page= (Page<TbMoments>)momentsMapper.findDetail(key,date);	
+			return new PageResult(page.getTotal(), page.getResult());
+		}
 	
 }

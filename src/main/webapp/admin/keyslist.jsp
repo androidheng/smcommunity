@@ -15,7 +15,7 @@ $(function () {
         nowrap: false,
         striped: true,
         fit: true,
-        url: "<%=baseUrl%>/users/search",
+        url: "<%=baseUrl%>/moments/search",
         idField: 'id',
         pagination: true,
         rownumbers: true,
@@ -30,17 +30,13 @@ $(function () {
             [
                 //{field: 'ck', checkbox: true},
                 {title: 'id', width: 100, field: 'id', sortable: true},
-                {title: '用户名', width: 100, field: 'username', sortable: true},
-                {title: '密码', width: 300, field: 'password',sortable: true},
-                {title: '性别', width: 300, field: 'gender',sortable: true},
-                {title: '昵称', width: 300, field: 'nickname',sortable: true},
-                {title: '邮箱', width: 300, field: 'email',sortable: true},
-                {title: '注册时间',width: 300, field: 'createtime',sortable: true},
-                {title: '用户画像',width:100,field:'-',align:'center',
+                {title: '日期',width: 300, field: 'createtime',sortable: true},
+                {title: '次数', width: 300, field: 'nums',sortable: true},
+                {title: '详情',width:100,field:'-',align:'center',
                     formatter: function(value,row,index){
                    // return '<a style="color:blue" href="/arbcase/case-'+row.id+'">'+结账+'</a>';
  						//	return '结账';
- 							return '<a style="color:blue" href="javascript:void(0);" onclick=cal('+row.id+');>画像</a>';
+ 							return '<a style="color:blue" href="javascript:void(0);" onclick=cal("'+row.createtime+'");>详情</a>';
  						//return '<a style="color:blue" href="localhost:8080\\img\\'+row.id+'.jpg">画像</a>';
                    // return '结账';
              } }
@@ -125,14 +121,14 @@ function save() {
     });
 }
 
-function edit(obj) {
+/* function edit(obj) {
 	var id = obj.id;
     $("#id").val(id);
     $("#username").val(obj.username);
     $("#password").val(obj.password);
     $("#sex").val(obj.sex);
     $("#managerDialog").dialog('open');
-}
+} */
 
 function deleteItem(uuid) {
     openBackGround();
@@ -156,9 +152,9 @@ function query() {
 
 
 function closeFlush() {
-    managForm.reset();
+    //managForm.reset();
     $("#managerDialog").dialog('close');
-    $("#grid1").datagrid("reload");
+    //$("#grid1").datagrid("reload");
 }
 
 function inputCheck() {
@@ -174,11 +170,101 @@ function inputCheck() {
 function setNull(){
     searchForm.reset();
 }
-function cal(id){
+function cal(createtime){
 	
-     window.location.href="${pageContext.request.contextPath }/img/"+id+".jpg";
+     //window.location.href="${pageContext.request.contextPath }/img/"+id+".jpg";
+    var key= $("#key").val();
+    if(key==''){
+    	alert("请输入关键字");
+    	return ;
+    }
+	edit(key,createtime);
 };
+function edit(key,createtime) {
+    $('#grid2').datagrid({
+        title: '详情列表',
+        nowrap: false,
+        striped: true,
+        fit: true,
+        url: '<%=baseUrl%>/moments/detail?key='+key+'&date='+createtime,
+        idField: 'id',
+        pagination: true,
+        rownumbers: true,
+        pageSize: 10,
+        pageNumber: 1,
+        singleSelect: true,
+        fitColumns: true,
+        pageList: [5,10, 20, 50, 100, 200, 300, 500, 1000],
+        sortName: 'id',
+        sortOrder: 'desc',
+        columns: [
+            [
+                //{field: 'ck', checkbox: true},
+                {title: '评论内容',width: 300, field: 'content',sortable: true}
+            ]
+        ], toolbar: [
+        	/*{
+                text: '新增',
+                id: "tooladd",
+                disabled: false,
+                iconCls: 'icon-add',
+                handler: function () {
+                    $("#action").val("add");
+                    $("#managerDialog").dialog('open');
+                    managForm.reset();
+                }
+            },
+            '-',
+            {
+                text: '修改',
+                id: 'tooledit',
+                disabled: false,
+                iconCls: 'icon-edit',
+                handler: function () {
+                    $("#action").val("edit");
+                    var selected = $('#grid1').datagrid('getSelected');
+                    if (selected) {
+                        edit(selected);
+                    } else {
+                        $.messager.alert("提示", "请选择一条记录进行操作");
+                    }
+                }
+            } ,
+            '-',
+            {
+                text: '删除',
+                id: 'tooldel',
+                disabled: false,
+                iconCls: 'icon-remove',
+                handler: function () {
+                    var rows = $('#grid1').datagrid('getSelections');
+                    if (rows.length) {
+                        var ids = "";
+                        for (var i = 0; i < rows.length; i++) {
+                            ids += rows[i].id + ",";
+                        }
+                        ids = ids.substr(0, (ids.length - 1));
+                        $.messager.confirm('提示', '确定要删除吗？', function (r) {
+                            if (r) {
+                                deleteItem(ids);
+                            }
+                        });
+                    } else {
+                        $.messager.alert("提示", "请选择一条记录进行操作");
+                    }
+                }
+            } */
+        ]
+    });
 
+    document.onkeydown=function (e){
+        e = e ? e : event;
+        if(e.keyCode == 13){
+            query();
+        }
+    }
+    $("#managerDialog").dialog('open');
+}
 
 </script>
 </head>
@@ -193,9 +279,15 @@ function cal(id){
             <form action="" id="searchForm" name="searchForm" method="post" align="center">
                 <table cellpadding="5" cellspacing="0" class="tb_search" align="center">
                     <tr>
-                        <td width="1%" >
-                            <label for="sname">用户名：</label>
+                        <td width="2%" >
+                            <label for="sname">关键词：</label>
                             <input type="text" id="key" name="key"  maxlength="32"/>
+                        </td>
+                        <td width="10%" >
+                            <label for="sname">开始日期：</label>
+                            <input id="startdate" name="startdate" type="text" class="easyui-datebox" required="required">
+                            <label for="sname">结束日期：</label>
+                            <input id="enddate" name="enddate" type="text" class="easyui-datebox" required="required">
                         </td>
                         <td width="10%">
                             <a href="#" onclick="query();" id="querylink" class="easyui-linkbutton"
@@ -217,42 +309,11 @@ function cal(id){
 
 <div id="managerDialog" class="easyui-dialog" title="用户管理" style="width:450px;height:350px;" toolbar="#dlg-toolbar"
      buttons="#dlg-buttons2" resizable="true" modal="true" closed='true'>
-    <form id="managForm" name="managForm" method="post" >
-        <input type="hidden" id="id" name="id"/>
-        <table cellpadding="1" cellspacing="1" class="tb_custom1">
-            <tr>
-                <th width="30%" align="right"><label>用户名：</label></th>
-                <td width="60%" colspan="1">
-                    <input id="username" name="username" class="easyui-validatebox"
-                           style="width:300px;word-wrap: break-word;word-break:break-all;" type="text" required="true"
-                           validType="length[0,100]"/>
-                </td>
-            </tr>
-            <tr>
-                <th width="30%" align="right"><label>密码：</label></th>
-                <td width="60%" colspan="1">
-                    <input id="password" name="password" class="easyui-validatebox"
-                           style="width:300px;word-wrap: break-word;word-break:break-all;" type="text" required="true"
-                           validType="length[0,100]"/>
-                </td>
-            </tr>
-            <tr>
-                <th width="30%" align="right"><label>性别：</label></th>
-                <td width="60%" colspan="1">
-                    <select id="sex" class="easyui-combobox" name="sex" style="width:200px;">
-					    <option value="男">男</option>
-					    <option value="女">女</option>
-					</select>
-                </td>
-            </tr>
-
-        </table>
+        <table id="grid2"></table>
 
 
-    </form>
     <div id="dlg-buttons2">
-        <a href="#" class="easyui-linkbutton" onclick="save();">保存</a>
-        <a href="#" class="easyui-linkbutton" onclick="cancel();">取消</a>
+        <a href="#" class="easyui-linkbutton" onclick="cancel();">关闭</a>
     </div>
 </div>
 

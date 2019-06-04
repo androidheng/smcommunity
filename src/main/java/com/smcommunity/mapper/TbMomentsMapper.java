@@ -1,7 +1,11 @@
 package com.smcommunity.mapper;
 
+import com.github.pagehelper.Page;
 import com.smcommunity.pojo.TbMoments;
 import com.smcommunity.pojo.TbMomentsExample;
+
+import entity.PageResult;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -31,4 +35,8 @@ public interface TbMomentsMapper {
     List<TbMoments> findBbs(@Param("newstype") String  newstype);
 
 	List<TbMoments> findBbsNoKey();
+
+	List<TbMoments> findPages(@Param("key") String key,@Param("startdate") String startdate,@Param("enddate") String enddate);
+
+	List<TbMoments> findDetail(@Param("key") String key,@Param("date") String date);
 }

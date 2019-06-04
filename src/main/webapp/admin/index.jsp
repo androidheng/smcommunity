@@ -31,7 +31,13 @@ String roletype = "1";
       	                     {"menuid": "31", "menuname": "通知列表", "icon": "icon-users", "url": "<%= basePath%>admin/messagelist.jsp"}
       	                 ]
       	
-      	             } 
+      	             },
+      	             {"menuid": "56", "icon": "icon-role", "menuname": "大屏展示",
+      	                 "menus": [
+      	                     {"menuid": "31", "menuname": "关键词展示", "icon": "icon-users", "url": "<%= basePath%>admin/keyslist.jsp"}
+      	                 ]
+      	
+      	             }
       	         ]};
 	     
     </script>

@@ -16,6 +16,7 @@
     <result column="goodsname" property="goodsname" jdbcType="VARCHAR" />
     <result column="goodsdescribe" property="goodsdescribe" jdbcType="VARCHAR" />
     <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="nums" property="nums" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -276,5 +277,33 @@
 	select b.id,b.content,b.logo ,b.uid ,0 `type`,b.createtime,b.loved,b.comments,c.nickname,c.headlogo,'' goodsimage,'' goodsname,'' goodsdescribe
 	from tb_moments b,tb_users c where b.uid=c.id  ) aa
 	ORDER BY aa.createtime desc
+  </select>
+  <select id="findPages" resultMap="BaseResultMap">
+  	SELECT DATE_FORMAT(a.createtime,'%Y-%m-%d') createtime,COUNT(0) nums
+	FROM tb_moments a
+	<where>
+		<if test="key!=null">
+			a.`content` LIKE "%"#{key,jdbcType=VARCHAR}"%"
+		</if>
+		<if test="startdate!=null">
+			AND date_format(a.createtime,'%Y-%m-%d')>=#{startdate,jdbcType=VARCHAR}
+		</if>
+		<if test="startdate!=null">
+			AND date_format(a.createtime,'%Y-%m-%d') <![CDATA[<=]]>#{enddate,jdbcType=VARCHAR}
+		</if>
+	</where>
+	GROUP BY  DATE_FORMAT(a.createtime,'%Y-%m-%d')
+  </select>
+  <select id="findDetail" resultMap="BaseResultMap">
+  	SELECT a.content
+	FROM tb_moments a
+	<where>
+		<if test="key!=null">
+			a.`content` LIKE "%"#{key,jdbcType=VARCHAR}"%"
+		</if>
+		<if test="date!=null">
+			AND date_format(a.createtime,'%Y-%m-%d') =#{date,jdbcType=VARCHAR}
+		</if>
+	</where>
   </select>
 </mapper>
