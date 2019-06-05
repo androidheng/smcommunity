@@ -309,4 +309,14 @@
  <select id="findHistory" resultMap="BaseResultMap" parameterType="java.lang.Integer">
   	select a.*,b.createtime from tb_goods a,tb_history b where a.id=b.gid and b.uid=#{id,jdbcType=INTEGER}
   </select>
+ <select id="recommendAll" resultMap="BaseResultMap" >
+ SELECT * FROM tb_goods a 
+	WHERE  EXISTS(
+		SELECT * FROM tb_type aa,tb_words bb
+		WHERE aa.`etypename`=bb.`tname`
+		AND aa.`etypename`=#{etypename,jdbcType=VARCHAR} AND aa.id=a.tid
+	)
+	AND a.goodstype=1
+ ORDER BY RAND() LIMIT 1
+  </select>
 </mapper>

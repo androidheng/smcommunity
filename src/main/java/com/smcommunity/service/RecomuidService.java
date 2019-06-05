@@ -1,6 +1,6 @@
 package com.smcommunity.service;
 import java.util.List;
-import com.smcommunity.pojo.TbGoods;
+import com.smcommunity.pojo.TbRecomuid;
 
 import entity.PageResult;
 /**
@@ -8,13 +8,13 @@ import entity.PageResult;
  * @author Administrator
  *
  */
-public interface GoodsService {
+public interface RecomuidService {
 
 	/**
 	 * 返回全部列表
 	 * @return
 	 */
-	public List<TbGoods> findAll();
+	public List<TbRecomuid> findAll();
 	
 	
 	/**
@@ -27,13 +27,13 @@ public interface GoodsService {
 	/**
 	 * 增加
 	*/
-	public void add(TbGoods goods);
+	public void add(TbRecomuid banner);
 	
 	
 	/**
 	 * 修改
 	 */
-	public void update(TbGoods goods);
+	public void update(TbRecomuid banner);
 	
 
 	/**
@@ -41,12 +41,12 @@ public interface GoodsService {
 	 * @param id
 	 * @return
 	 */
-	public TbGoods findOne(Integer id);
+	public TbRecomuid findOne(Integer id);
 	
 	
 	/**
-	 * 批量删除
-	 * @param ids
+	 * 删除
+	 * @param id
 	 */
 	public void delete(Integer  id);
 
@@ -56,15 +56,6 @@ public interface GoodsService {
 	 * @param pageSize 每页记录数
 	 * @return
 	 */
-	public PageResult findPage(TbGoods goods, int pageNum,int pageSize);
-
-
-	public List<TbGoods> findGuanGao();
-
-
-	public List<TbGoods> findShouAll();
-
-
-	public List<TbGoods> recommendAll(String uid);
+	public PageResult findPage(TbRecomuid banner, int pageNum,int pageSize);
 	
 }

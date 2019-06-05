@@ -1,13 +1,17 @@
 package com.smcommunity.service.impl;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.smcommunity.mapper.TbGoodsMapper;
+import com.smcommunity.mapper.TbRecomuidMapper;
 import com.smcommunity.pojo.TbGoods;
 import com.smcommunity.pojo.TbGoodsExample;
 import com.smcommunity.pojo.TbGoodsExample.Criteria;
+import com.smcommunity.pojo.TbRecomuid;
+import com.smcommunity.pojo.TbRecomuidExample;
 import com.smcommunity.service.GoodsService;
 
 import entity.PageResult;
@@ -22,6 +26,8 @@ public class GoodsServiceImpl implements GoodsService {
 
 	@Autowired
 	private TbGoodsMapper goodsMapper;
+	@Autowired
+	private TbRecomuidMapper recomuidMapper;
 	
 	/**
 	 * 查询全部
@@ -115,6 +121,23 @@ public class GoodsServiceImpl implements GoodsService {
 			criteria.andGoodstypeEqualTo(0);
 			
 			return goodsMapper.selectByExample(example);		
+		}
+
+		@Override
+		public List<TbGoods> recommendAll(String uid) {
+			TbRecomuidExample example=new TbRecomuidExample();
+			com.smcommunity.pojo.TbRecomuidExample.Criteria criteria = example.createCriteria();
+			criteria.andUidEqualTo(Integer.parseInt(uid));
+			List<TbRecomuid> list = recomuidMapper.selectByExample(example);
+			if(list.size()==0)
+				return new ArrayList<>();
+			List<TbGoods> resultList=new ArrayList<>();
+			String str=list.get(0).getMaxtname();
+			String[] split = str.split(",");
+			for (String s : split) {
+				resultList.addAll(goodsMapper.recommendAll(s));
+			}
+			return resultList;
 		}
 	
 }

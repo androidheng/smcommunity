@@ -58,6 +58,10 @@ public class GoodsController {
 	public List<TbGoods> findShouAll(){			
 		return goodsService.findShouAll();
 	}
+	@RequestMapping("/recommendAll")
+	public List<TbGoods> recommendAll(String uid){			
+		return goodsService.recommendAll(uid);
+	}
 	
 	
 	/**

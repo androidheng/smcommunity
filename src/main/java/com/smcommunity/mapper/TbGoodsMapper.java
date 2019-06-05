@@ -29,4 +29,6 @@ public interface TbGoodsMapper {
     int updateByPrimaryKey(TbGoods record);
     
     List<TbGoods> findHistory(int id);
+
+	List<TbGoods> recommendAll(@Param("etypename") String etypename);
 }
