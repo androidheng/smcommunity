@@ -37,6 +37,12 @@ String roletype = "1";
       	                     {"menuid": "31", "menuname": "关键词展示", "icon": "icon-users", "url": "<%= basePath%>admin/keyslist.jsp"}
       	                 ]
       	
+      	             },
+      	             {"menuid": "56", "icon": "icon-role", "menuname": "社区情感",
+      	                 "menus": [
+      	                     {"menuid": "31", "menuname": "社区情感", "icon": "icon-users", "url": "<%= basePath%>admin/qingganlist.jsp"}
+      	                 ]
+      	
       	             }
       	         ]};
 	     
