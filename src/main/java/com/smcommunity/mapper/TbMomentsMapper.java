@@ -39,4 +39,7 @@ public interface TbMomentsMapper {
 	List<TbMoments> findPages(@Param("key") String key,@Param("startdate") String startdate,@Param("enddate") String enddate);
 
 	List<TbMoments> findDetail(@Param("key") String key,@Param("date") String date);
+
+	List<TbMoments> findType(@Param("uid") Integer uid);
+	List<TbMoments> findRand(@Param("uid") Integer uid,@Param("newstype") String newstype);
 }

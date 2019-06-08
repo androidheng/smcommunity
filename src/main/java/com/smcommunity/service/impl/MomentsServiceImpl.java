@@ -132,5 +132,15 @@ public class MomentsServiceImpl implements MomentsService {
 			Page<TbMoments> page= (Page<TbMoments>)momentsMapper.findDetail(key,date);	
 			return new PageResult(page.getTotal(), page.getResult());
 		}
+
+		@Override
+		public List<TbMoments> findType(String uid) {
+			return momentsMapper.findType(Integer.parseInt(uid));
+		}
+
+		@Override
+		public List<TbMoments> findRand(String uid, String newstype) {
+			return momentsMapper.findRand(Integer.parseInt(uid), newstype);
+		}
 	
 }

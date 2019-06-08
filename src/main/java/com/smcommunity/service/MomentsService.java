@@ -69,5 +69,11 @@ public interface MomentsService {
 
 
 	public PageResult findPage(String key, String date, int page, int rows);
+
+
+	public List<TbMoments> findType(String uid);
+
+
+	public List<TbMoments> findRand(String uid, String newstype);
 	
 }

@@ -306,4 +306,15 @@
 		</if>
 	</where>
   </select>
+    <select id="findType" resultMap="BaseResultMap">
+  	SELECT  newstype 
+	FROM tb_moments WHERE  uid = #{uid,jdbcType=INTEGER}
+	GROUP BY  newstype
+  </select>
+    <select id="findRand" resultMap="BaseResultMap">
+  	SELECT  * 
+	FROM tb_moments WHERE  uid != #{uid,jdbcType=INTEGER}
+	and newstype =#{newstype,jdbcType=VARCHAR}
+	order by rand() limit 1
+  </select>
 </mapper>

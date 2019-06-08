@@ -86,6 +86,12 @@ public class MomentsController {
 	@RequestMapping("/findMyList")
 	public List<TbMoments> findMyList(String uid){
 		List<TbMoments> list = momentsService.findMyComents(Integer.parseInt(uid));
+		List<TbMoments> list2=momentsService.findType(uid);
+		for (TbMoments tbMoments : list2) {
+			List<TbMoments> list3=momentsService.findRand(uid,tbMoments.getNewstype());
+			if(list3.size()>0)
+				list.addAll(list3);
+		}
 		return list;
 	}
 	
