@@ -52,14 +52,19 @@ public class MomentsController {
 	 */
 	@ResponseBody
 	@RequestMapping("/findAll")
-	public List<TbMoments> findAll(String key){
+	public List<TbMoments> findAll(String key,String uid){
 		List<TbMoments> list=null;
 		if(StringUtils.isEmpty(key)) {
 			list=tbMomentsMapper.findBbsNoKey();
 		}else {
 			list=tbMomentsMapper.findBbs(key);
 		}
-		
+		List<TbMoments> list2=momentsService.findType(uid);
+		for (TbMoments tbMoments : list2) {
+			List<TbMoments> list3=momentsService.findRand(uid,tbMoments.getNewstype());
+			if(list3.size()>0)
+				list.addAll(list3);
+		}
 	/*	 List<TbMoments> list = momentsService.findAll(key);
 		 List<MomentsVo> resultLit=new ArrayList<>();
 		 List<TbGoods> goods=goodsService.findGuanGao();
@@ -86,12 +91,7 @@ public class MomentsController {
 	@RequestMapping("/findMyList")
 	public List<TbMoments> findMyList(String uid){
 		List<TbMoments> list = momentsService.findMyComents(Integer.parseInt(uid));
-		List<TbMoments> list2=momentsService.findType(uid);
-		for (TbMoments tbMoments : list2) {
-			List<TbMoments> list3=momentsService.findRand(uid,tbMoments.getNewstype());
-			if(list3.size()>0)
-				list.addAll(list3);
-		}
+	
 		return list;
 	}
 	
