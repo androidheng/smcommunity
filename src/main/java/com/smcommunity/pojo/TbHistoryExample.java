@@ -353,6 +353,76 @@ public class TbHistoryExample {
             addCriterion("createtime not between", value1, value2, "createtime");
             return (Criteria) this;
         }
+
+        public Criteria andTnameIsNull() {
+            addCriterion("tname is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTnameIsNotNull() {
+            addCriterion("tname is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTnameEqualTo(String value) {
+            addCriterion("tname =", value, "tname");
+            return (Criteria) this;
+        }
+
+        public Criteria andTnameNotEqualTo(String value) {
+            addCriterion("tname <>", value, "tname");
+            return (Criteria) this;
+        }
+
+        public Criteria andTnameGreaterThan(String value) {
+            addCriterion("tname >", value, "tname");
+            return (Criteria) this;
+        }
+
+        public Criteria andTnameGreaterThanOrEqualTo(String value) {
+            addCriterion("tname >=", value, "tname");
+            return (Criteria) this;
+        }
+
+        public Criteria andTnameLessThan(String value) {
+            addCriterion("tname <", value, "tname");
+            return (Criteria) this;
+        }
+
+        public Criteria andTnameLessThanOrEqualTo(String value) {
+            addCriterion("tname <=", value, "tname");
+            return (Criteria) this;
+        }
+
+        public Criteria andTnameLike(String value) {
+            addCriterion("tname like", value, "tname");
+            return (Criteria) this;
+        }
+
+        public Criteria andTnameNotLike(String value) {
+            addCriterion("tname not like", value, "tname");
+            return (Criteria) this;
+        }
+
+        public Criteria andTnameIn(List<String> values) {
+            addCriterion("tname in", values, "tname");
+            return (Criteria) this;
+        }
+
+        public Criteria andTnameNotIn(List<String> values) {
+            addCriterion("tname not in", values, "tname");
+            return (Criteria) this;
+        }
+
+        public Criteria andTnameBetween(String value1, String value2) {
+            addCriterion("tname between", value1, value2, "tname");
+            return (Criteria) this;
+        }
+
+        public Criteria andTnameNotBetween(String value1, String value2) {
+            addCriterion("tname not between", value1, value2, "tname");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

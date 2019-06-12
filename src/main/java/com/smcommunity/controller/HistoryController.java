@@ -5,10 +5,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 
 import com.smcommunity.pojo.TbGoods;
 import com.smcommunity.pojo.TbHistory;
+import com.smcommunity.pojo.TbType;
+import com.smcommunity.service.GoodsService;
 import com.smcommunity.service.HistoryService;
+import com.smcommunity.service.TypeService;
 import com.smcommunity.utils.DateUtils;
 
 import entity.PageResult;
@@ -24,6 +28,11 @@ public class HistoryController {
 
 	@Autowired
 	private HistoryService historyService;
+	
+	@Autowired
+	private GoodsService goodsService;
+	@Autowired
+	private TypeService tpService;
 	
 	
 	/**
@@ -59,6 +68,12 @@ public class HistoryController {
 				historyService.update(hasHistory);
 				return new Result(true, "修改成功");
 			}else {
+				TbGoods tbGoods = goodsService.findOne(history.getGid());
+				//if(!StringUtils.isEmpty(tbGoods.getWid())) {
+					TbType tbType = tpService.findOne(tbGoods.getTid());
+					history.setTname(tbType.getEtypename());
+				//}
+				   
 				history.setCreatetime(DateUtils.getCurrent());
 				historyService.add(history);
 				return new Result(true, "增加成功");

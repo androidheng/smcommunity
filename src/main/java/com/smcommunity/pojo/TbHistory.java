@@ -9,6 +9,8 @@ public class TbHistory {
 
     private String createtime;
 
+    private String tname;
+
     public Integer getId() {
         return id;
     }
@@ -39,5 +41,13 @@ public class TbHistory {
 
     public void setCreatetime(String createtime) {
         this.createtime = createtime == null ? null : createtime.trim();
+    }
+
+    public String getTname() {
+        return tname;
+    }
+
+    public void setTname(String tname) {
+        this.tname = tname == null ? null : tname.trim();
     }
 }
