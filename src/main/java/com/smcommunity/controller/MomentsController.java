@@ -17,8 +17,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 
 import com.smcommunity.mapper.TbMomentsMapper;
+import com.smcommunity.mapper.TbRetypeMapper;
 import com.smcommunity.pojo.TbGoods;
 import com.smcommunity.pojo.TbMoments;
+import com.smcommunity.pojo.TbRetype;
+import com.smcommunity.pojo.TbRetypeExample;
+import com.smcommunity.pojo.TbRetypeExample.Criteria;
 import com.smcommunity.pojo.TbUsers;
 import com.smcommunity.service.GoodsService;
 import com.smcommunity.service.MomentsService;
@@ -46,10 +50,32 @@ public class MomentsController {
 	private GoodsService goodsService;
 	@Autowired
 	private TbMomentsMapper tbMomentsMapper;
+	@Autowired
+	private TbRetypeMapper retypeMapper;
 	/**
 	 * 返回全部列表
 	 * @return
 	 */
+	@ResponseBody
+	@RequestMapping("/findTuiAll")
+	public List<TbMoments> findTuiAll(String uid){
+		List<TbMoments> list=new ArrayList<>();
+		TbRetypeExample example=new TbRetypeExample();
+		example.createCriteria().andUidEqualTo(Integer.parseInt(uid));
+		List<TbRetype> list4 = retypeMapper.selectByExample(example);
+		if(list4.size()>0) {
+			for (TbRetype tbRetype : list4) {
+				String[] split = tbRetype.getMaxtype().split(",");
+				for (String str : split) {
+					List<TbMoments> list3=momentsService.findRand(uid,str);
+					if(list3.size()>0)
+						list.addAll(list3);
+				}
+				
+			}
+		}
+		return list;
+	}
 	@ResponseBody
 	@RequestMapping("/findAll")
 	public List<TbMoments> findAll(String key,String uid){
